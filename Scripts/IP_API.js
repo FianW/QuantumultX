@@ -29,7 +29,7 @@ const emojis = [
   "🐌",
   "👥",
 ];
-var city0 = "高谭市";
+var city0 = "浣熊市";
 var isp0 = "Cross-GFW.org";
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
@@ -246,19 +246,31 @@ var flags = new Map([
 
 var body = $response.body;
 var obj = JSON.parse(body);
-var title = flags.get(obj["countryCode"]) + " " + City_ValidCheck(obj["city"]); //+Area_check(obj['country']);
+var title = flags.get(obj["countryCode"]) + " " + City_ValidCheck(obj["city"]) + " " +Area_check(obj["country"]);
 var subtitle = ISP_ValidCheck(obj["org"] || obj.as);
 var ip = obj["query"];
 var description =
-  "服务商:" +
-  obj["isp"] +
+  "城市:" +
+  City_ValidCheck(obj["city"]) +
   "\n" +
-  "地区:" +
+  "区域:" +
   City_ValidCheck(obj["regionName"]) +
+  "\n" +
+  "国家/地区:" +
+  City_ValidCheck(obj["country"]) +
   "\n" +
   "IP:" +
   obj["query"] +
   "\n" +
-  "时区:" +
-  obj["timezone"];
+  "ISP:" +
+  obj["isp"] +
+  "\n" +
+  "ORG:" +
+  obj["org"] +
+  "\n" +
+  "ASN:" +
+  obj["as"] +
+  "\n" +
+  "Hosting:" +
+  obj["hosting"];
 $done({ title, subtitle, ip, description });
